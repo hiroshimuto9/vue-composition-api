@@ -5,12 +5,15 @@
       <TodoItem :todo="todo" />
     </li>
   </ul>
-  <router-link to="/todos/new">新規作成</router-link>
+  <button @click="create">
+    新規作成
+  </button>
 </template>
 <script lang="ts">
 import { todoKey } from '@/store/todo'
 import { defineComponent, inject } from 'vue'
 import TodoItem from '@/components/todo/todoItem.vue'
+import router from '@/router'
 
 export default defineComponent({
   components: {
@@ -23,8 +26,14 @@ export default defineComponent({
     if (!todoStore) {
       throw new Error('todoStore is not provided')
     }
+
+    const create = () => {
+      router.push('/todos/new')
+    }
+
     return {
-      todoStore
+      todoStore,
+      create
     }
   },
 })
