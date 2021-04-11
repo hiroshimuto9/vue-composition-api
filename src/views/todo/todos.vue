@@ -3,21 +3,19 @@
   <ul>
     <!-- TODO: コンポーネント化 -->
     <li v-for="todo in todoStore.state.todos" :key="todo.id">
-      {{ todo.title }}
-      {{ todo.description }}
-      {{ todo.status }}
-      {{ todo.deadline }}
-      {{ todo.completionDate }}
-      {{ todo.createdAt }}
-      {{ todo.updatedAt }}
+      <TodoItem :todo="todo" />
     </li>
   </ul>
 </template>
 <script lang="ts">
 import { todoKey } from '@/store/todo'
 import { defineComponent, inject } from 'vue'
+import TodoItem from '@/components/todo/todoItem.vue'
 
 export default defineComponent({
+  components: {
+    TodoItem
+  },
   setup() {
     const todoStore = inject(todoKey)
     // 不正なkeyや当コンポーネントより上位階層でprovideされていない場合、
