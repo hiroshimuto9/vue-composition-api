@@ -1,3 +1,5 @@
+import { DeepReadonly } from 'vue'
+
 export type Status = "未着手" | "着手中" | "完了"
 
 export interface Todo {
@@ -9,4 +11,12 @@ export interface Todo {
   completionDate?: Date,
   createdAt: Date,
   updatedAt: Date
+}
+
+export interface TodoState {
+  todos: Todo[]
+}
+
+export interface TodoStore {
+  state: DeepReadonly<TodoState>
 }

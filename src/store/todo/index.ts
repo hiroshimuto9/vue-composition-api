@@ -1,4 +1,5 @@
-import { Todo } from '@/types/todo/todo'
+import { InjectionKey, reactive, readonly } from 'vue'
+import { Todo, TodoStore, TodoState } from '@/types/todo/todo'
 
 const mockTodo: Todo[] = [
   {
@@ -32,3 +33,13 @@ const mockTodo: Todo[] = [
     updatedAt: new Date('2021-04-03'),
   },
 ]
+
+const state = reactive<TodoState>({
+  todos: mockTodo,
+})
+
+export const todoStore: TodoStore = {
+  state: readonly(state)
+}
+
+export const todoKey: InjectionKey<TodoStore> = Symbol('todoKey')
