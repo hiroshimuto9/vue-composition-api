@@ -1,5 +1,5 @@
 import { InjectionKey, reactive, readonly } from 'vue'
-import { Todo, TodoStore, TodoState } from '@/types/todo/todo'
+import { Todo, TodoStore, TodoState, Params } from '@/types/todo/todo'
 
 const mockTodo: Todo[] = [
   {
@@ -38,8 +38,27 @@ const state = reactive<TodoState>({
   todos: mockTodo,
 })
 
+const initializeTodo = (todo: Params) => {
+  const date = new Date();
+  return {
+    id: date.getTime(),
+    title: todo.title,
+    description: todo.description,
+    status: "未着手",
+    deadline: todo.deadline,
+    completionDate: undefined,
+    createdAt: date,
+    updatedAt: date,
+  } as Todo
+}
+
+const addTodo = (todo: Params) => {
+  state.todos.push(initializeTodo(todo))
+}
+
 export const todoStore: TodoStore = {
-  state: readonly(state)
+  state: readonly(state),
+  addTodo
 }
 
 export const todoKey: InjectionKey<TodoStore> = Symbol('todoKey')

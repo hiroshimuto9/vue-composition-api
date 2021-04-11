@@ -7,7 +7,7 @@ export interface Todo {
   title: string,
   description: string,
   status: Status,
-  deadline: Date,
+  deadline?: Date,
   completionDate?: Date,
   createdAt: Date,
   updatedAt: Date
@@ -19,4 +19,7 @@ export interface TodoState {
 
 export interface TodoStore {
   state: DeepReadonly<TodoState>
+  addTodo: (todo: Params) => void
 }
+
+export type Params = Pick<Todo, "title" | "description" | "deadline" >
