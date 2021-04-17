@@ -56,9 +56,14 @@ const addTodo = (todo: Params) => {
   state.todos.push(initializeTodo(todo))
 }
 
+const deleteTodo = (id: number) => {
+  state.todos = state.todos.filter((todo) => todo.id !== id)
+}
+
 export const todoStore: TodoStore = {
   state: readonly(state),
-  addTodo
+  addTodo,
+  deleteTodo
 }
 
 export const todoKey: InjectionKey<TodoStore> = Symbol('todoKey')
