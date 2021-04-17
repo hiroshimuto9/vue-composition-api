@@ -60,10 +60,19 @@ const deleteTodo = (id: number) => {
   state.todos = state.todos.filter((todo) => todo.id !== id)
 }
 
+const getTodo = (id: number) => {
+  const todo = state.todos.find((todo) => todo.id === id)
+  if (!todo) {
+    throw new Error(`ID：${id}のTodoは存在しません。`)
+  }
+  return todo
+}
+
 export const todoStore: TodoStore = {
   state: readonly(state),
   addTodo,
-  deleteTodo
+  deleteTodo,
+  getTodo
 }
 
 export const todoKey: InjectionKey<TodoStore> = Symbol('todoKey')
