@@ -2,7 +2,11 @@
   <h1>Todo一覧</h1>
   <ul>
     <li v-for="todo in todoStore.state.todos" :key="todo.id">
-      <TodoItem :todo="todo" @todoDelete="todoDelete" />
+      <TodoItem
+        :todo="todo"
+        @todoDelete="todoDelete"
+        @todoEdit="todoEdit"
+      />
     </li>
   </ul>
   <button @click="create">
@@ -35,10 +39,15 @@ export default defineComponent({
       todoStore.deleteTodo(id)
     }
 
+    const todoEdit = (id: number) => {
+      router.push(`/todos/edit/${id}`)
+    }
+
     return {
       todoStore,
       create,
-      todoDelete
+      todoDelete,
+      todoEdit
     }
   },
 })

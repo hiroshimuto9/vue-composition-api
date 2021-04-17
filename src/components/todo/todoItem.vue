@@ -9,6 +9,7 @@
     {{ todo.updatedAt }}
   </div>
   <div>
+    <button @click="todoEdit">編集</button>
     <button @click="todoDelete">削除</button>
   </div>
 </template>
@@ -23,13 +24,19 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['todoDelete'],
+  emits: ['todoDelete', 'todoEdit'],
   setup(props, { emit }) {
     const todoDelete = () => {
       emit('todoDelete', props.todo.id)
     }
+
+    const todoEdit = () => {
+      emit('todoEdit', props.todo.id)
+    }
+
     return {
-      todoDelete
+      todoDelete,
+      todoEdit
     }
   }
 })
