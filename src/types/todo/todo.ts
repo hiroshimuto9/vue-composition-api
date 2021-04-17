@@ -22,6 +22,7 @@ export interface TodoStore {
   addTodo: (todo: Params) => void
   deleteTodo: (id: number) => void
   getTodo: (id: number) => Todo
+  updateTodo: (id: number, todo: Todo) => void
 }
 
 export type Params = Pick<Todo, "title" | "description" | "deadline" >

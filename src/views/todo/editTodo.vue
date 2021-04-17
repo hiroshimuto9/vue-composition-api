@@ -44,7 +44,7 @@
 import { todoKey } from '@/store/todo'
 import { Todo } from '@/types/todo/todo'
 import { defineComponent, inject, reactive } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
@@ -53,6 +53,7 @@ export default defineComponent({
       throw new Error('todoStore is not provided')
     }
 
+    const router = useRouter()
     const route = useRoute()
     const id: number = Number(route.params.id)
 
@@ -69,9 +70,25 @@ export default defineComponent({
         updatedAt: todo.updatedAt
       })
 
+      const onSubmit = () => {
+      const { title, description, deadline, status, completionDate, createdAt, updatedAt } = data
+      todoStore.updateTodo(id, {
+        id,
+        title,
+        description,
+        deadline,
+        status,
+        completionDate,
+        createdAt,
+        updatedAt
+      })
+      router.push("/todos")
+    }
+
       return {
         error: false,
-        data
+        data,
+        onSubmit
       }
     } catch (error) {
       console.error(error)
