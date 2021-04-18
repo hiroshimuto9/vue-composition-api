@@ -1,12 +1,12 @@
 <template>
   <div>
-    {{ todo.title }}
-    {{ todo.description }}
-    {{ todo.status }}
-    {{ todo.deadline }}
-    {{ todo.completionDate }}
-    {{ todo.createdAt }}
-    {{ todo.updatedAt }}
+    <p>タイトル：{{ todo.title }}</p>
+    <p>説明：{{ todo.description }}</p>
+    <p>ステータス：{{ todo.status }}</p>
+    <p>締切日：{{ todo.deadline }}</p>
+    <p>完了日：{{ todo.completionDate }}</p>
+    <p>作成日：{{ todo.createdAt }}</p>
+    <p>更新日：{{ todo.updatedAt }}</p>
   </div>
   <div>
     <button @click="todoEdit">編集</button>
