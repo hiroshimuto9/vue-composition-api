@@ -1,53 +1,33 @@
 <template>
   <h1>Todo一覧</h1>
-  <ul>
-    <li v-for="todo in todoStore.state.todos" :key="todo.id">
-      <TodoItem
-        :todo="todo"
-        @todoDelete="todoDelete"
-        @todoEdit="todoEdit"
-      />
-    </li>
-  </ul>
+  <Suspense>
+    <template #default>
+      <AsyncTodos />
+    </template>
+    <template #fallback>
+      <span>Loading...</span>
+    </template>
+  </Suspense>
   <button @click="create">
     新規作成
   </button>
 </template>
 <script lang="ts">
-import { todoKey } from '@/store/todo'
-import { defineComponent, inject } from 'vue'
-import TodoItem from '@/components/todo/todoItem.vue'
+import { defineComponent } from 'vue'
+import AsyncTodos from '@/components/todo/asyncTodos.vue'
 import router from '@/router'
 
 export default defineComponent({
   components: {
-    TodoItem
+    AsyncTodos
   },
   setup() {
-    const todoStore = inject(todoKey)
-    // 不正なkeyや当コンポーネントより上位階層でprovideされていない場合、
-    // undefinedが返ってくるため型ガードを実装
-    if (!todoStore) {
-      throw new Error('todoStore is not provided')
-    }
-
     const create = () => {
       router.push('/todos/new')
     }
 
-    const todoDelete = (id: number) => {
-      todoStore.deleteTodo(id)
-    }
-
-    const todoEdit = (id: number) => {
-      router.push(`/todos/edit/${id}`)
-    }
-
     return {
-      todoStore,
       create,
-      todoDelete,
-      todoEdit
     }
   },
 })
