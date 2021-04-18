@@ -19,10 +19,12 @@ export interface TodoState {
 
 export interface TodoStore {
   state: DeepReadonly<TodoState>
-  addTodo: (todo: Params) => void
-  deleteTodo: (id: number) => void
+  fetchTodos: () => void
+  fetchTodo: (id: number) => void
   getTodo: (id: number) => Todo
+  addTodo: (todo: Params) => void
   updateTodo: (id: number, todo: Todo) => void
+  deleteTodo: (id: number) => void
 }
 
 export type Params = Pick<Todo, "title" | "description" | "deadline" >
